@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+import React,{Fragment,useState} from 'react';
 import './App.css';
 
+//Components
+import Header from './layout/header';
+import Footer from './layout/footer';
+
 function App() {
+  const [todos,setTodos] = useState(["Take the dog out","buy bread from the shop","pratapbabu wants to livestream today"])
+  const [input,setInput] = useState("");
+
+  const handleChange = e =>{
+    setInput(e.target.value)
+  }
+
+  const addTodo = (e) =>{
+    e.preventDefault();
+    setTodos([...todos,input]);
+    setInput('');
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Fragment>
+
+    <div className="container">
+      <h1>TO-DO</h1>
+
+      <form>
+      <input value={input} onChange = {handleChange}/>
+      <button type="submit" onClick={addTodo}>add</button>
+      </form>
+
+      <ul>
+      {todos.map((todo) =>(
+        <li><h5>{todo}</h5></li>
+      ))}
+      </ul>
     </div>
+  
+    </Fragment>
   );
 }
 
